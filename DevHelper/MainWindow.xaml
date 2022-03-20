@@ -1,0 +1,21 @@
+﻿<Window x:Class="DevHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DevHelper"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="INPUTTEXT" Text="{Binding INPUTTEXT}" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Grid.Column="0"></TextBox>
+        <Border Grid.Column="1">
+            <Button Content="Convert ☞" VerticalAlignment="Center"/>
+        </Border>
+        <TextBox x:Name="CONVERTRESULT" AcceptsReturn="True" Grid.Column="2" Text="{Binding CONVERTRESULT}"></TextBox>
+    </Grid>
+</Window>
