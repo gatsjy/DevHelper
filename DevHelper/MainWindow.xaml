@@ -9,13 +9,19 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="INPUTTEXT" Text="{Binding INPUTTEXT}" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Grid.Column="0"></TextBox>
-        <Border Grid.Column="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="INPUTTEXT" Text="{Binding INPUTTEXT}" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Grid.Column="0" Grid.Row="1"></TextBox>
+        <TextBox x:Name="INPUTTEXT2" Text="{Binding INPUTTEXT2}" AcceptsReturn="True" TextChanged="TextBox2_TextChanged" Grid.Column="1" Grid.Row="1"></TextBox>
+        <Border Grid.Column="2" Grid.Row="1">
             <Button Content="Convert ☞" VerticalAlignment="Center"/>
         </Border>
-        <TextBox x:Name="CONVERTRESULT" AcceptsReturn="True" Grid.Column="2" Text="{Binding CONVERTRESULT}"></TextBox>
+        <TextBox x:Name="CONVERTRESULT" AcceptsReturn="True" Grid.Column="3" Text="{Binding CONVERTRESULT}" Grid.Row="1"/>
     </Grid>
 </Window>

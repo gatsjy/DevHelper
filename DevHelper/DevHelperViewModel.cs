@@ -11,6 +11,7 @@ namespace DevHelper
     public class DevHelperViewModel : INotifyPropertyChanged
     {
         private string inputtext = "";
+        private string inputtext2 = "";
         public string INPUTTEXT
         {
             get => inputtext;
@@ -18,6 +19,15 @@ namespace DevHelper
             {
                 inputtext = value;
                 NotifyPropertyChanged();
+            }
+        }
+        public string INPUTTEXT2
+        {
+            get => inputtext2;
+            set
+            {
+                inputtext2 = value;
+                NotifyPropertyChanged2();
             }
         }
 
@@ -28,6 +38,12 @@ namespace DevHelper
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(inputtext));
         }
 
+        public event PropertyChangedEventHandler PropertyChanged2;
+
+        public void NotifyPropertyChanged2([CallerMemberName] string inputtext2 = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(inputtext2));
+        }
 
     }
 }
