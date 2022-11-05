@@ -5,23 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevHelper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="아이피 파싱 프로그램" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="INPUTTEXT" Text="{Binding INPUTTEXT}" AcceptsReturn="True" TextChanged="TextBox_TextChanged" Grid.Column="0" Grid.Row="1"></TextBox>
-        <TextBox x:Name="INPUTTEXT2" Text="{Binding INPUTTEXT2}" AcceptsReturn="True" TextChanged="TextBox2_TextChanged" Grid.Column="1" Grid.Row="1"></TextBox>
-        <Border Grid.Column="2" Grid.Row="1">
-            <Button Content="Convert ☞" VerticalAlignment="Center"/>
-        </Border>
-        <TextBox x:Name="CONVERTRESULT" AcceptsReturn="True" Grid.Column="3" Text="{Binding CONVERTRESULT}" Grid.Row="1"/>
+        
+        <TextBlock Grid.Row="0" Text="ipv4_policy.csv &#10;Drop Down" VerticalAlignment="Center" AllowDrop="True" DragDrop.DragEnter="TextBlock_DragEnter"/>
+        <TextBox Grid.Row="2" x:Name="INPUTTEXT" Text="{Binding INPUTTEXT}" AcceptsReturn="True" TextChanged="TextBox_TextChanged" />
+
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="악성코드 및 Log4j 공격IP 리스트 &#10;Drop Down" VerticalAlignment="Center" AllowDrop="True" DragDrop.DragEnter="TextBlock_DragEnter_1" />
+        <TextBox Grid.Row="2" Grid.Column="2" x:Name="INPUTTEXT2" Text="{Binding INPUTTEXT2}" AcceptsReturn="True" TextChanged="TextBox2_TextChanged" />
+
+        <TextBlock Grid.Row="0" Grid.Column="4" Text="Result"  VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="4" x:Name="CONVERTRESULT" AcceptsReturn="True" Text="{Binding CONVERTRESULT}" />
     </Grid>
 </Window>

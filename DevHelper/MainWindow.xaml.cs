@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DevHelper
 {
@@ -135,7 +130,80 @@ namespace DevHelper
                     }
                 }
             }
-            CONVERTRESULT.Text = sb.ToString();
+            CONVERTRESULT.Text = sb.ToString(); 
+        }
+
+        // policy 부분
+        private void TextBlock_DragEnter(object sender, DragEventArgs e)
+        {
+            string[] files = (String[])e.Data.GetData(DataFormats.FileDrop);
+            foreach(string file in files)
+            {
+                if (file.Contains("ipv4_policy"))
+                {
+                    if (!File.Exists(file))
+                    {
+                        continue;
+                    }
+
+                    Excel.Application application = new Excel.Application();
+                    application.Visible = true;
+                    Excel.Workbook workbook = application.Workbooks.Open(file);
+                    Excel.Worksheet worksheet1 = (Excel.Worksheet)workbook.Worksheets.get_Item("ipv4_policy");
+                    Excel.Range range = worksheet1.UsedRange;
+                    string data = "";
+
+                    for(int i = 1; i <= range.Rows.Count; i++)
+                    {
+                        for (int j = 1; j <= range.Columns.Count; j++)
+                        {
+                            if (j == 10)
+                            {
+                                if (!string.IsNullOrEmpty(Convert.ToString(range.Cells[i, j].value2)) && IsIPAddr(Convert.ToString(range.Cells[i, j].value2)))
+                                {
+                                    data += text2IpCheck(Convert.ToString(range.Cells[i, j].value2));
+                                    data += "\n";
+                                }
+                            }
+                        }
+                    }
+
+                    INPUTTEXT.Text = data;
+
+                    DeleteObject(worksheet1);
+                    DeleteObject(workbook);
+                    application.Quit();
+                    DeleteObject(application);
+                }
+            }
+        }
+
+        // [정보공유] 악성코드 및 Log4j 공격IP 리스트 부분
+        private void TextBlock_DragEnter_1(object sender, DragEventArgs e)
+        {
+            string[] files = (String[])e.Data.GetData(DataFormats.FileDrop);
+            foreach (string file in files)
+            {
+                Console.WriteLine(file);
+            }
+        }
+
+        private void DeleteObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("메모리 할당을 해제하는 중 문제가 발생하였습니다." + ex.ToString(), "경고!");
+            }
+            finally
+            {
+                GC.Collect();
+            }
         }
     }
 }
